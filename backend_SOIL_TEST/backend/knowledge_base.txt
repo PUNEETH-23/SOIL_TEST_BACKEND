@@ -1,0 +1,162 @@
+# ============================================================
+#  AGRONOMIC KNOWLEDGE BASE — Soil & Crop Management (India)
+#  Used by the RAG layer to retrieve context for LLM generation.
+#  Each section is separated by --- for chunk splitting.
+#  Source: Standard Indian agricultural extension guidelines,
+#  ICAR recommendations, and soil science best practices.
+# ============================================================
+
+---
+ID: ph_001
+TOPIC: soil_ph_acidic
+Optimal soil pH for most crops is 6.0 to 7.0. When soil pH drops below 5.5, it becomes too acidic and causes nutrient lockout, especially for phosphorus, calcium, and magnesium. Aluminium and manganese become toxic to roots at low pH. Symptoms include stunted growth, yellowing leaves, and poor root development. To raise soil pH, apply agricultural lime (calcium carbonate) at 2 to 4 tonnes per hectare. Work the lime into the top 15 cm of soil before sowing. Allow 3 to 6 months for full effect before re-testing. Dolomitic lime is preferred when magnesium is also deficient, as it supplies both calcium and magnesium.
+
+---
+ID: ph_002
+TOPIC: soil_ph_alkaline
+Alkaline soil with pH above 7.5 reduces the availability of iron, manganese, zinc, boron, and copper. Plants show interveinal chlorosis (yellowing between leaf veins) due to iron deficiency. To lower soil pH, apply elemental sulfur at 200 to 500 kg per hectare. Sulfur-oxidising bacteria in the soil convert it to sulfuric acid over 6 to 8 weeks. For faster correction, apply ferrous sulfate at 100 to 200 kg per hectare as a soil drench. Adding large amounts of organic matter and compost also gradually acidifies alkaline soil. Avoid using hard irrigation water with high bicarbonates, as it pushes pH higher over time.
+
+---
+ID: ph_003
+TOPIC: soil_ph_crop_ranges
+Different crops have different optimal pH ranges. Rice grows best at pH 5.5 to 6.5. Wheat prefers pH 6.0 to 7.5. Maize grows well at pH 5.8 to 7.0. Sugarcane thrives at pH 5.5 to 7.5. Cotton tolerates pH 5.8 to 8.0. Groundnut prefers pH 5.5 to 6.5. Soybean grows at pH 6.0 to 7.0. Tomato prefers pH 6.0 to 6.8. Onion and garlic grow at pH 6.0 to 7.0. Chilli grows at pH 6.0 to 7.0. Banana prefers pH 5.5 to 6.5. Always match your soil pH correction target to the specific crop you plan to grow.
+
+---
+ID: n_001
+TOPIC: nitrogen_deficiency
+Nitrogen is the most important nutrient for vegetative growth. It is a key component of chlorophyll, amino acids, and proteins. Nitrogen deficiency causes yellowing (chlorosis) starting from older lower leaves, as nitrogen moves from old to new growth. Deficient plants are stunted, pale green to yellow overall, and produce fewer tillers or branches. Soil nitrogen levels below 20 kg per hectare are considered deficient for most field crops. For correction, apply urea (46% N) at 100 to 200 kg per hectare in split doses. Apply 50% as a basal dose at planting, 25% at 30 days after sowing, and 25% at flowering or panicle initiation. Split application reduces nitrogen loss through leaching and volatilisation.
+
+---
+ID: n_002
+TOPIC: nitrogen_fertilizers
+Key nitrogen fertilizers available in India: Urea (46% N) — cheapest and most widely used, apply in the evening to reduce volatilisation losses. Ammonium sulphate (21% N, 24% S) — good for soils deficient in sulfur. DAP or diammonium phosphate (18% N, 46% P2O5) — good combined nitrogen and phosphorus source for basal application. Calcium ammonium nitrate (25% N) — suitable for alkaline soils as it is less likely to cause further alkalinity. Ammonium chloride (25% N) — useful for paddy fields. Always apply nitrogen fertilizer when soil moisture is adequate for incorporation and uptake.
+
+---
+ID: n_003
+TOPIC: nitrogen_organic
+Organic nitrogen sources commonly used in India: Vermicompost contains 1.5 to 2% nitrogen and improves soil structure along with nutrient supply. Apply 2 to 5 tonnes per hectare. Farmyard manure (FYM) contains 0.5% nitrogen, 0.25% phosphorus, and 0.5% potassium. Apply 10 to 20 tonnes per hectare as a basal treatment. Neem cake contains 5% nitrogen and also suppresses soil-borne pests and nematodes. Apply 200 to 500 kg per hectare. Biofertilizers: Rhizobium inoculation for legume crops fixes 50 to 200 kg nitrogen per hectare from the atmosphere free of cost. Azospirillum biofertilizer is used for cereals and grasses to fix 20 to 40 kg nitrogen per hectare. Green manuring with Dhaincha (Sesbania bispinosa) or Sunnhemp adds 60 to 90 kg nitrogen per hectare when incorporated into soil 45 days after sowing.
+
+---
+ID: p_001
+TOPIC: phosphorus_deficiency
+Phosphorus is essential for root development, energy transfer (ATP), flowering, seed formation, and early seedling vigour. Phosphorus deficiency causes purple or reddish discolouration of leaves and stems due to accumulation of anthocyanins. Plants are stunted with thin stems, delayed flowering, and poor seed set. Roots appear thin, sparse, and dark coloured. Soil phosphorus below 10 kg per hectare is considered deficient. Apply DAP (diammonium phosphate, 18% N, 46% P2O5) at 100 to 150 kg per hectare as a basal dose before sowing. Phosphorus is immobile in soil — always incorporate it into the root zone rather than surface-applying. In acidic soils, phosphorus binds with iron and aluminium; correct pH first for best phosphorus availability.
+
+---
+ID: p_002
+TOPIC: phosphorus_fertilizers
+Phosphorus fertilizers available in India: DAP (diammonium phosphate) is the most common source, 46% P2O5 and 18% N. SSP (single super phosphate) contains 16% P2O5 plus 11% sulfur — good for oilseeds and pulses which need sulfur. TSP (triple super phosphate) contains 46% P2O5 with no nitrogen, used when only phosphorus is needed. Rock phosphate is a slow-release organic P source best suited for acidic soils where it dissolves slowly. It contains 20 to 30% P2O5. PSB (phosphate-solubilising bacteria) biofertilizer releases phosphorus locked in soil — apply as seed treatment or soil application at 2 to 5 kg per hectare. It improves phosphorus availability by 25 to 30% and reduces the need for chemical phosphorus fertilizer.
+
+---
+ID: k_001
+TOPIC: potassium_deficiency
+Potassium regulates stomatal opening and water use efficiency, disease resistance, starch and sugar transport, and grain quality. Potassium deficiency shows as marginal leaf scorch or tip burn starting on older lower leaves. Leaves curl, and in severe cases turn brown and die from the tips inward. Plants lodge easily and are more susceptible to fungal diseases. Soil potassium below 10 kg per hectare is deficient. Apply MOP (muriate of potash, 60% K2O) at 60 to 120 kg per hectare. For salt-sensitive crops like potato, tobacco, and tomato, use SOP (sulphate of potash, 50% K2O) which is chloride-free. Apply half as a basal dose and half as a top dressing at 30 to 45 days after sowing.
+
+---
+ID: k_002
+TOPIC: potassium_organic
+Organic potassium sources: Wood ash contains 5 to 10% K2O and is alkaline — apply 500 to 1000 kg per hectare on acidic soils only. Banana pseudostem and leaves are rich in potassium — compost and apply 2 to 5 tonnes per hectare. Coir pith compost contains significant potassium and is widely available in South India. Granite dust is a slow-release potassium source for long-term soil improvement. Greensand (glauconite) also releases potassium slowly over several seasons. These organic sources help maintain long-term soil potassium levels and reduce dependency on synthetic fertilizers.
+
+---
+ID: moisture_001
+TOPIC: soil_moisture_low
+Soil moisture below 20% causes water stress, wilting, reduced nutrient uptake, and significant yield losses. Critical crop growth stages for irrigation are germination and emergence, vegetative growth phase, flowering and pollination, and grain filling or fruit development. Missing irrigation at flowering can cause up to 50% yield loss. Drip irrigation saves 40 to 50% water compared to flood irrigation and delivers water directly to the root zone. Sprinkler irrigation saves 20 to 30% water. Mulching with dry straw, crop residue, or plastic film reduces soil moisture evaporation by 30 to 40%. Rainwater harvesting through farm ponds can supplement irrigation during dry spells.
+
+---
+ID: moisture_002
+TOPIC: soil_moisture_high
+Excess soil moisture above 80% causes waterlogging and anaerobic conditions in the root zone. This leads to root rot, reduced oxygen supply to roots, denitrification (loss of soil nitrogen as gas), accumulation of toxic compounds like hydrogen sulphide and methane, and proliferation of fungal and bacterial soil-borne diseases. Corrective actions: Construct drainage channels or furrows to remove standing water. Adopt raised bed planting — raise beds 20 to 30 cm above field level. Install subsurface drainage pipes in chronically waterlogged areas. Apply Trichoderma viride or Trichoderma harzianum at 2.5 kg per hectare to prevent fungal root rot. Avoid heavy irrigation schedules during rainy season. Select flood-tolerant crop varieties where waterlogging is recurrent.
+
+---
+ID: ec_001
+TOPIC: salinity_high_ec
+Electrical conductivity above 4.0 dS per metre indicates saline soil. Salinity causes osmotic stress — plant roots cannot absorb water even when soil moisture is adequate, causing physiological drought. Symptoms are similar to drought stress: wilting, leaf burn, and stunted growth. Salt-tolerant crops that can be grown in saline conditions include barley (tolerates up to 8 dS/m), cotton (7 dS/m), sugarbeet (7 dS/m), wheat (6 dS/m), and sugarcane (5 dS/m). Salt-sensitive crops to avoid: beans (1 dS/m), carrot (1 dS/m), onion (1.2 dS/m). Corrective measures: Leach salts by applying 3 to 5 heavy irrigation doses to push salts below the root zone. Apply gypsum (calcium sulphate) at 5 tonnes per hectare to displace sodium ions in sodic soils and improve soil structure. Plant salt-tolerant green manure crops like Dhaincha for reclamation.
+
+---
+ID: ec_002
+TOPIC: ec_optimal_range
+EC between 1.0 and 2.0 dS per metre is optimal for most crops. EC between 2.0 and 4.0 dS per metre reduces yield of sensitive crops by 10 to 25%. Irrigation water EC above 2 dS per metre contributes to soil salinity over time — switch to a fresher water source or blend irrigation water with rainwater. Check bore well water EC regularly, especially in coastal or arid regions where groundwater is often saline. Installing a soil EC meter at field level allows real-time salinity monitoring across the crop season.
+
+---
+ID: crop_rice
+TOPIC: crop_rice
+Rice (Oryza sativa) requires high soil moisture and standing water during most of its growth period. Optimal soil pH is 5.5 to 6.5. Recommended NPK: 120 kg nitrogen, 60 kg phosphorus (P2O5), and 60 kg potassium (K2O) per hectare. Apply all phosphorus and potassium as basal doses before transplanting. Split nitrogen in three doses: 40% at basal, 30% at tillering (21 days), and 30% at panicle initiation (50 to 55 days). Zinc deficiency is very common in rice paddies — apply zinc sulphate (ZnSO4) at 25 kg per hectare as a basal dose. Harvest in 90 to 150 days depending on the variety. After rice harvest, avoid burning stubble — incorporate it as organic matter or use as compost.
+
+---
+ID: crop_wheat
+TOPIC: crop_wheat
+Wheat (Triticum aestivum) prefers well-drained loamy soils with pH 6.0 to 7.5. It requires moderate and evenly distributed moisture. Recommended NPK: 120 kg nitrogen, 60 kg phosphorus (P2O5), and 40 kg potassium (K2O) per hectare. Apply phosphorus and potassium as basal doses. Split nitrogen: 50% at basal, 25% at first irrigation (crown root initiation, 21 days), and 25% at second irrigation (jointing). Critical irrigation stages are: crown root initiation (21 days after sowing), tillering (45 days), jointing (60 days), flowering (75 days), and grain filling (90 days). Micronutrient: Apply iron sulphate at 50 kg per hectare if chlorosis appears on alkaline soils. Harvest 100 to 120 days after sowing.
+
+---
+ID: crop_cotton
+TOPIC: crop_cotton
+Cotton (Gossypium hirsutum) prefers deep, well-drained black cotton soil with pH 5.8 to 8.0. It has moderate salt tolerance (up to 7 dS/m). Recommended NPK: 150 kg nitrogen, 60 kg phosphorus (P2O5), and 60 kg potassium (K2O) per hectare. Apply nitrogen in three splits: 30% at basal, 35% at squaring (45 days), and 35% at boll development (75 days). Cotton is highly sensitive to waterlogging — provide good drainage. Micronutrients: Apply borax at 10 kg per hectare to prevent boll dropping and improve fibre quality. Apply zinc sulphate at 25 kg per hectare if zinc deficiency is observed. Pest management: Use Bt cotton varieties for bollworm resistance. Harvest 150 to 180 days after sowing.
+
+---
+ID: crop_maize
+TOPIC: crop_maize
+Maize (Zea mays) grows on a wide range of soils at pH 5.8 to 7.0. It requires well-drained fertile loamy soil. Recommended NPK: 150 kg nitrogen, 75 kg phosphorus (P2O5), and 75 kg potassium (K2O) per hectare. Apply all phosphorus and potassium as basal. Split nitrogen: 50% at basal, 25% at knee-high stage (30 days), and 25% at tasseling (50 days). Critical irrigation stages: germination, knee-high stage, tasseling, and grain filling. Zinc deficiency is common in maize — apply zinc sulphate at 25 kg per hectare. Maize is sensitive to waterlogging for more than 48 hours — ensure good drainage. Harvest 90 to 110 days after sowing.
+
+---
+ID: crop_tomato
+TOPIC: crop_tomato
+Tomato (Solanum lycopersicum) requires well-drained loamy soil with pH 6.0 to 6.8. Consistent soil moisture is critical — irregular watering causes blossom-end rot (calcium deficiency disorder) and fruit cracking. Recommended NPK: 180 kg nitrogen, 90 kg phosphorus (P2O5), and 90 kg potassium (K2O) per hectare in four split doses. Apply calcium nitrate foliar spray at 0.5% concentration if blossom-end rot appears. Drip irrigation is strongly recommended to maintain consistent moisture. Mulching with black polythene or dry straw reduces moisture loss and controls weeds. Apply magnesium sulphate at 50 kg per hectare to prevent interveinal chlorosis. Harvest in 70 to 100 days from transplanting.
+
+---
+ID: crop_groundnut
+TOPIC: crop_groundnut
+Groundnut (Arachis hypogaea) prefers sandy loam soils with pH 6.0 to 7.0 for good pod penetration. Recommended NPK: 25 kg nitrogen, 50 kg phosphorus (P2O5), and 75 kg potassium (K2O) per hectare. Being a legume, groundnut fixes its own nitrogen through Rhizobium — apply only a starter dose of 20 to 25 kg nitrogen per hectare at basal. Calcium is critical for pod filling — apply gypsum (calcium sulphate) at 400 to 500 kg per hectare at pegging stage (30 to 35 days after sowing). Boron application at 1 kg per hectare (as borax) improves pod setting. Avoid waterlogging, especially during pod filling. Harvest 95 to 130 days after sowing.
+
+---
+ID: crop_sugarcane
+TOPIC: crop_sugarcane
+Sugarcane (Saccharum officinarum) grows well in deep, well-drained loamy or clay loam soils with pH 5.5 to 7.5. It is a heavy feeder requiring large quantities of nutrients. Recommended NPK: 250 to 300 kg nitrogen, 115 to 125 kg phosphorus (P2O5), and 115 to 125 kg potassium (K2O) per hectare per year. Apply nitrogen in 4 to 5 splits across the crop season. Sugarcane requires regular irrigation — apply 25 to 30 irrigations per crop depending on climate. Apply zinc sulphate at 25 kg per hectare and iron sulphate at 50 kg per hectare if deficiencies are observed. Trash mulching with dried leaves reduces moisture loss and suppresses weeds. Plant ratoon crops for 2 to 3 years to reduce replanting costs. Harvest 10 to 14 months after planting.
+
+---
+ID: crop_soybean
+TOPIC: crop_soybean
+Soybean (Glycine max) prefers well-drained loamy soils with pH 6.0 to 7.0. As a legume it fixes atmospheric nitrogen through Rhizobium japonicum inoculation — seed treatment eliminates the need for nitrogen fertilizer in most cases. Recommended NPK: 20 to 30 kg nitrogen (starter only), 60 to 80 kg phosphorus (P2O5), and 40 to 60 kg potassium (K2O) per hectare as basal. Apply molybdenum at 1 kg per hectare to improve nitrogen fixation. Soybean is sensitive to waterlogging — plant on raised beds or well-drained land. Iron chlorosis can occur on alkaline soils — apply ferrous sulphate at 50 kg per hectare. Harvest 90 to 120 days after sowing.
+
+---
+ID: crop_onion
+TOPIC: crop_onion
+Onion (Allium cepa) requires loose, well-drained sandy loam soil with pH 6.0 to 7.5. Bulb formation requires consistent soil moisture — moisture stress during bulbing reduces bulb size significantly. Recommended NPK: 100 to 110 kg nitrogen, 50 to 60 kg phosphorus (P2O5), and 60 to 70 kg potassium (K2O) per hectare. Apply nitrogen in three splits. Sulfur is essential for pungency and shelf life — apply SSP or ammonium sulphate for combined sulfur and phosphorus. Apply boron at 1 to 2 kg per hectare to prevent hollow heart and internal browning. Onion is sensitive to salinity — maintain EC below 1.2 dS per metre. Harvest when 50% of tops fall over naturally, approximately 100 to 120 days from transplanting.
+
+---
+ID: crop_selection_general
+TOPIC: crop_selection
+General crop selection guide based on soil type: Sandy soils with low water retention are best suited for groundnut, sorghum, pearl millet (bajra), finger millet (ragi), sesame, and cowpea. These crops tolerate dry conditions and poor soils. Heavy clay soils with high water retention are best suited for rice, sugarcane, and jute which tolerate or require high moisture. Medium loamy and black cotton soils are ideal for cotton, soybean, wheat, maize, chickpea, and most vegetables. Red laterite soils are suited for cashew, groundnut, and millet. Always consider local rainfall patterns, market proximity, water availability, and historical performance of crops in your area before choosing a crop.
+
+---
+ID: crop_rotation_001
+TOPIC: crop_rotation
+Crop rotation improves soil health, breaks pest and disease cycles, and reduces fertilizer costs. After a cereal crop like rice or wheat, grow a legume like chickpea, lentil, or mungbean to restore soil nitrogen. After a heavy-feeder like sugarcane or cotton, grow a low-demand crop like sorghum or millet. Avoid growing the same crop family in the same field for more than two consecutive seasons. Good rotation sequences in India: Rice → Wheat → Mungbean. Cotton → Chickpea → Wheat. Maize → Soybean → Wheat. Sugarcane ratoon → Wheat → Mungbean. Tomato → Onion → Legume. Mixed cropping of cereals with legumes as intercrops also improves nitrogen balance and biodiversity.
+
+---
+ID: organic_farming_001
+TOPIC: organic_practices
+Integrated Nutrient Management (INM) combines chemical fertilizers with organic inputs for sustainable soil health. Key practices: Apply farmyard manure (FYM) at 10 to 20 tonnes per hectare every season as a base. Compost kitchen and crop waste into quality compost with Trichoderma or EM solution to accelerate decomposition. Use biofertilizers: Rhizobium for legumes, Azospirillum for cereals, PSB for phosphorus availability, and Azotobacter as a general nitrogen fixer. Vermicompost at 2 to 4 tonnes per hectare improves soil biological activity, moisture retention, and macro nutrient supply. Jeevamrutha (fermented cow dung + cow urine + jaggery + gram flour + soil) applied monthly improves soil microbial life in zero-budget natural farming. Panchagavya spray (cow-based bio-stimulant) applied at 3% concentration improves plant immunity and yield.
+
+---
+ID: soil_health_001
+TOPIC: soil_health_general
+Healthy soil is defined by: pH between 6.0 and 7.0, EC below 2.0 dS per metre, adequate nitrogen (above 20 kg/ha), phosphorus (above 10 kg/ha), and potassium (above 10 kg/ha), organic carbon above 0.75%, diverse and active soil microbial population, and good physical structure with adequate aeration and water holding capacity. Soil should smell earthy and feel crumbly, not hard or compacted. Soil testing every season before sowing is strongly recommended to track nutrient changes, catch deficiencies early, and adjust fertilizer inputs precisely. Avoid over-fertilization — excess nitrogen causes groundwater contamination and reduces fruit and grain quality. Balance between chemical inputs and organic matter is the key to long-term soil productivity.
+
+---
+ID: soil_health_002
+TOPIC: soil_improvement
+Steps to improve degraded or depleted soil: Step 1 — Add organic matter. Apply 10 to 20 tonnes per hectare of well-decomposed farmyard manure or compost at least 3 to 4 weeks before sowing. Step 2 — Correct pH. Apply lime or sulfur as needed based on soil test results. Step 3 — Deep ploughing. Plough to 30 to 45 cm depth once every 3 to 4 years to break hard pans, improve aeration, and allow deeper root penetration. Step 4 — Grow a green manure crop like Dhaincha or Sunnhemp and incorporate it before flowering. Step 5 — Apply biofertilizers. Step 6 — Avoid burning crop residue — incorporate it instead to return organic carbon to soil. Step 7 — Adopt minimum tillage practices after initial improvement to maintain soil structure.
+
+---
+ID: micronutrients_001
+TOPIC: micronutrients
+Micronutrients commonly deficient in Indian soils: Zinc is the most widespread deficiency — affects rice, wheat, maize, and cotton. Apply zinc sulphate (21% Zn) at 25 kg per hectare as basal, or 0.5% foliar spray. Iron deficiency causes interveinal chlorosis on young leaves in alkaline soils. Apply ferrous sulphate at 50 kg per hectare or 0.5% foliar spray. Boron deficiency causes hollow stem in brassicas, poor fruit set in cotton and groundnut, and internal browning in onion. Apply borax at 10 kg per hectare. Manganese deficiency appears in alkaline soils — apply manganese sulphate at 25 kg per hectare. Copper and molybdenum deficiencies are rare but occur in sandy or peat soils. Always confirm micronutrient deficiency with soil and/or leaf tissue testing before applying.
+
+---
+ID: irrigation_001
+TOPIC: irrigation_management
+Efficient irrigation management is critical for yield and water conservation. Flood irrigation is the most common method in India but wastes 50 to 60% of water through evaporation, runoff, and deep percolation. Drip irrigation delivers water directly to the root zone through emitters, saving 40 to 50% water and improving fertilizer use efficiency through fertigation. Sprinkler irrigation is suitable for cereals, vegetables, and groundnut — saves 20 to 30% water compared to flood irrigation. Signs of water stress that indicate immediate irrigation is needed: drooping leaves in the morning, wilting during the day that does not recover at night, and soil that does not form a ball when pressed. Schedule irrigations based on crop stage, soil type, and evapotranspiration demand, not calendar-based fixed intervals.
+
+---
+ID: pest_disease_001
+TOPIC: pest_disease_prevention
+Soil health directly affects crop resistance to pests and diseases. Healthy soil with balanced nutrition produces stronger plants that resist pest attack. Key soil-based disease prevention practices: Apply Trichoderma viride or Trichoderma harzianum at 2.5 kg per hectare mixed with organic manure to control soil-borne fungi like Fusarium, Pythium, and Sclerotinia. Apply Pseudomonas fluorescens at 2.5 kg per hectare to suppress bacterial wilt and damping-off. Crop rotation breaks the soil-borne disease cycle — avoid planting the same crop family repeatedly. Deep summer ploughing exposes soil to sunlight and kills pathogens, eggs, and pupae. Avoid waterlogging which promotes root rot. Neem cake application at 200 kg per hectare suppresses nematodes and soil insects while adding nitrogen.

@@ -1,0 +1,2186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KrushiSoil — Soil Intelligence Platform</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400;500&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --soil-dark: #1a1208;
+    --soil-brown: #3d2b1f;
+    --soil-mid: #6b4226;
+    --soil-warm: #a0522d;
+    --soil-tan: #c8956c;
+    --soil-light: #e8cba8;
+    --soil-cream: #f5efe6;
+    --leaf-green: #4a7c59;
+    --leaf-light: #7fb08a;
+    --leaf-pale: #c8e6c9;
+    --sky-blue: #4a90b8;
+    --sky-pale: #d6eaf8;
+    --gold: #d4a017;
+    --gold-light: #f0c040;
+    --danger: #c0392b;
+    --danger-light: #fadbd8;
+    --warn: #e67e22;
+    --warn-light: #fdebd0;
+    --success: #27ae60;
+    --success-light: #d5f5e3;
+    --white: #ffffff;
+    --text-dark: #1a1208;
+    --text-mid: #5a4a3a;
+    --text-light: #8a7a6a;
+    --border: #ddd0be;
+    --shadow: 0 4px 24px rgba(61,43,31,0.12);
+    --shadow-lg: 0 12px 48px rgba(61,43,31,0.18);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Mono', monospace;
+    background: var(--soil-cream);
+    color: var(--text-dark);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ── LANDING ── */
+  #landing {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: var(--soil-dark);
+    position: relative;
+    overflow: hidden;
+  }
+
+  #landing::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: 
+      radial-gradient(ellipse 80% 60% at 20% 80%, rgba(100,66,30,0.5) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 80% at 80% 20%, rgba(74,124,89,0.2) 0%, transparent 60%);
+  }
+
+  .land-grid {
+    position: absolute; inset: 0;
+    background-image: 
+      linear-gradient(rgba(200,149,108,0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(200,149,108,0.05) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+
+  .land-content {
+    position: relative;
+    text-align: center;
+    padding: 2rem;
+    animation: fadeUp 0.8s ease both;
+  }
+
+  .land-badge {
+    display: inline-block;
+    background: rgba(74,124,89,0.2);
+    border: 1px solid rgba(127,176,138,0.4);
+    color: var(--leaf-light);
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 0.4rem 1rem;
+    border-radius: 20px;
+    margin-bottom: 2rem;
+  }
+
+  .land-title {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(3rem, 8vw, 6rem);
+    font-weight: 800;
+    color: var(--white);
+    line-height: 1;
+    margin-bottom: 0.5rem;
+  }
+
+  .land-title span {
+    color: var(--soil-tan);
+    display: block;
+    font-style: italic;
+    font-size: 0.55em;
+    font-weight: 600;
+  }
+
+  .land-sub {
+    font-family: 'Lora', serif;
+    color: rgba(255,255,255,0.5);
+    font-size: 1rem;
+    margin-bottom: 3.5rem;
+    font-style: italic;
+  }
+
+  .land-portals {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .portal-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(200,149,108,0.2);
+    border-radius: 16px;
+    padding: 2.5rem 3rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 260px;
+    text-align: center;
+    backdrop-filter: blur(10px);
+  }
+
+  .portal-card:hover {
+    background: rgba(255,255,255,0.08);
+    border-color: rgba(200,149,108,0.5);
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+  }
+
+  .portal-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    display: block;
+  }
+
+  .portal-card h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 0.5rem;
+  }
+
+  .portal-card p {
+    font-size: 0.75rem;
+    color: rgba(255,255,255,0.4);
+    line-height: 1.6;
+  }
+
+  .portal-card.farmer { border-color: rgba(74,124,89,0.3); }
+  .portal-card.farmer:hover { border-color: rgba(127,176,138,0.6); box-shadow: 0 20px 40px rgba(74,124,89,0.15); }
+  .portal-card.admin { border-color: rgba(212,160,23,0.3); }
+  .portal-card.admin:hover { border-color: rgba(240,192,64,0.6); box-shadow: 0 20px 40px rgba(212,160,23,0.15); }
+
+  /* ── PAGES ── */
+  .page {
+    display: none;
+    min-height: 100vh;
+    animation: fadeUp 0.5s ease both;
+  }
+  .page.active { display: block; }
+
+  /* ── TOPBAR ── */
+  .topbar {
+    background: var(--soil-dark);
+    padding: 1rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 20px rgba(0,0,0,0.3);
+  }
+
+  .topbar-logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 1.1rem;
+    color: var(--white);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .topbar-logo span { color: var(--soil-tan); }
+
+  .topbar-back {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    color: rgba(255,255,255,0.7);
+    padding: 0.4rem 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem;
+    transition: all 0.2s;
+  }
+  .topbar-back:hover { background: rgba(255,255,255,0.15); color: white; }
+
+  .topbar-user {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .topbar-username {
+    font-size: 0.75rem;
+    color: var(--soil-tan);
+    font-family: 'DM Mono', monospace;
+  }
+
+  .btn-logout {
+    background: rgba(192,57,43,0.2);
+    border: 1px solid rgba(192,57,43,0.4);
+    color: #e74c3c;
+    padding: 0.4rem 0.9rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.75rem;
+    font-family: 'DM Mono', monospace;
+    transition: all 0.2s;
+  }
+  .btn-logout:hover { background: rgba(192,57,43,0.35); }
+
+  /* ── FARMER PAGE ── */
+  #farmer-page .hero {
+    background: linear-gradient(135deg, var(--soil-dark) 0%, var(--soil-brown) 100%);
+    padding: 4rem 2rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  #farmer-page .hero::after {
+    content: '';
+    position: absolute; bottom: 0; left: 0; right: 0;
+    height: 60px;
+    background: var(--soil-cream);
+    clip-path: ellipse(55% 100% at 50% 100%);
+  }
+
+  #farmer-page .hero h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 800;
+    color: var(--white);
+    margin-bottom: 0.75rem;
+  }
+
+  #farmer-page .hero p {
+    font-family: 'Lora', serif;
+    color: rgba(255,255,255,0.6);
+    font-style: italic;
+    font-size: 1rem;
+  }
+
+  .farmer-lookup {
+    max-width: 520px;
+    margin: -1rem auto 0;
+    padding: 2rem;
+    position: relative;
+    z-index: 10;
+  }
+
+  .lookup-card {
+    background: var(--white);
+    border-radius: 20px;
+    padding: 2.5rem;
+    box-shadow: var(--shadow-lg);
+    border: 1px solid var(--border);
+  }
+
+  .lookup-card h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 0.4rem;
+    color: var(--text-dark);
+  }
+
+  .lookup-card p {
+    font-size: 0.78rem;
+    color: var(--text-light);
+    margin-bottom: 1.5rem;
+  }
+
+  .input-row {
+    display: flex;
+    gap: 0.75rem;
+  }
+
+  .field-input {
+    flex: 1;
+    padding: 0.85rem 1rem;
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.85rem;
+    color: var(--text-dark);
+    background: var(--soil-cream);
+    transition: border-color 0.2s;
+    outline: none;
+  }
+  .field-input:focus { border-color: var(--leaf-green); background: white; }
+  .field-input::placeholder { color: var(--text-light); }
+
+  .btn-primary {
+    background: var(--leaf-green);
+    color: white;
+    border: none;
+    padding: 0.85rem 1.5rem;
+    border-radius: 10px;
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+  .btn-primary:hover { background: #3d6b4a; transform: translateY(-1px); }
+  .btn-primary:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+
+  .farmer-results {
+    max-width: 960px;
+    margin: 2rem auto;
+    padding: 0 1.5rem 3rem;
+  }
+
+  /* ── RESULT CARDS ── */
+  .farmer-header-card {
+    background: var(--white);
+    border-radius: 16px;
+    padding: 2rem;
+    margin-bottom: 1.5rem;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .farmer-id-display {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: var(--text-dark);
+  }
+
+  .farmer-id-display span {
+    display: block;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem;
+    font-weight: 400;
+    color: var(--text-light);
+    margin-bottom: 0.25rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  .yield-badge {
+    padding: 0.5rem 1.2rem;
+    border-radius: 20px;
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .yield-good    { background: var(--success-light); color: var(--success); }
+  .yield-moderate{ background: var(--warn-light);    color: var(--warn); }
+  .yield-poor    { background: var(--danger-light);  color: var(--danger); }
+
+  .score-ring-wrap {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .score-ring {
+    width: 64px; height: 64px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 1.1rem;
+  }
+
+  .score-ring.good     { background: var(--success-light); color: var(--success); border: 3px solid var(--success); }
+  .score-ring.moderate { background: var(--warn-light);    color: var(--warn);    border: 3px solid var(--warn); }
+  .score-ring.poor     { background: var(--danger-light);  color: var(--danger);  border: 3px solid var(--danger); }
+
+  .section-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  /* Parameter Grid */
+  .param-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .param-card {
+    background: var(--white);
+    border-radius: 14px;
+    padding: 1.25rem 1.5rem;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--border);
+    transition: transform 0.2s;
+  }
+  .param-card:hover { transform: translateY(-2px); }
+  .param-card.ideal   { border-left-color: var(--success); }
+  .param-card.low     { border-left-color: var(--warn); }
+  .param-card.high    { border-left-color: var(--warn); }
+  .param-card.critical{ border-left-color: var(--danger); }
+
+  .param-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.6rem;
+  }
+
+  .param-name {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-mid);
+  }
+
+  .param-status {
+    font-size: 0.68rem;
+    padding: 0.2rem 0.6rem;
+    border-radius: 10px;
+    font-weight: 500;
+  }
+  .status-Ideal          { background: var(--success-light); color: var(--success); }
+  .status-Low            { background: var(--warn-light);    color: var(--warn); }
+  .status-High           { background: var(--warn-light);    color: var(--warn); }
+  .status-Critical-Low   { background: var(--danger-light);  color: var(--danger); }
+  .status-Critical-High  { background: var(--danger-light);  color: var(--danger); }
+
+  .param-value {
+    font-size: 1.8rem;
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    color: var(--text-dark);
+    line-height: 1;
+    margin-bottom: 0.25rem;
+  }
+
+  .param-unit {
+    font-size: 0.7rem;
+    color: var(--text-light);
+    margin-bottom: 0.75rem;
+  }
+
+  .param-range {
+    font-size: 0.7rem;
+    color: var(--text-light);
+    margin-bottom: 0.6rem;
+  }
+
+  .param-action {
+    font-size: 0.73rem;
+    color: var(--text-mid);
+    line-height: 1.5;
+    padding-top: 0.6rem;
+    border-top: 1px solid var(--border);
+  }
+
+  /* Progress bar */
+  .param-bar-wrap { margin-bottom: 0.5rem; }
+  .param-bar-bg {
+    height: 5px;
+    background: var(--soil-cream);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+  .param-bar-fill {
+    height: 100%;
+    border-radius: 3px;
+    transition: width 1s ease;
+  }
+
+  /* Crop Cards */
+  .crop-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .crop-card {
+    background: var(--white);
+    border-radius: 14px;
+    padding: 1.25rem;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border);
+    text-align: center;
+    transition: transform 0.2s;
+  }
+  .crop-card:hover { transform: translateY(-3px); }
+  .crop-card.top1 { border-color: var(--gold); box-shadow: 0 4px 20px rgba(212,160,23,0.15); }
+
+  .crop-rank {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-light);
+    margin-bottom: 0.5rem;
+  }
+  .crop-card.top1 .crop-rank { color: var(--gold); }
+
+  .crop-name {
+    font-family: 'Syne', sans-serif;
+    font-size: 1rem;
+    font-weight: 800;
+    color: var(--text-dark);
+    margin-bottom: 0.75rem;
+  }
+
+  .crop-match-bar {
+    height: 8px;
+    background: var(--soil-cream);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 0.4rem;
+  }
+  .crop-match-fill {
+    height: 100%;
+    background: var(--leaf-green);
+    border-radius: 4px;
+    transition: width 1.2s ease;
+  }
+  .crop-card.top1 .crop-match-fill { background: var(--gold); }
+
+  .crop-pct {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 1.2rem;
+    color: var(--leaf-green);
+  }
+  .crop-card.top1 .crop-pct { color: var(--gold); }
+
+  .crop-matched-text {
+    font-size: 0.68rem;
+    color: var(--text-light);
+    margin-top: 0.2rem;
+  }
+
+  .crop-note {
+    font-size: 0.7rem;
+    color: var(--text-mid);
+    margin-top: 0.75rem;
+    line-height: 1.5;
+    text-align: left;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--border);
+  }
+
+  /* Fertilizer Table */
+  .fert-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--white);
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    margin-bottom: 1.5rem;
+  }
+  .fert-table th {
+    background: var(--soil-dark);
+    color: rgba(255,255,255,0.7);
+    text-align: left;
+    padding: 0.85rem 1.25rem;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-weight: 500;
+  }
+  .fert-table td {
+    padding: 0.9rem 1.25rem;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.8rem;
+    color: var(--text-dark);
+    vertical-align: top;
+  }
+  .fert-table tr:last-child td { border-bottom: none; }
+  .fert-table tr:hover td { background: var(--soil-cream); }
+  .fert-nutrient-badge {
+    display: inline-block;
+    background: var(--soil-cream);
+    border: 1px solid var(--border);
+    color: var(--soil-mid);
+    font-size: 0.68rem;
+    font-weight: 700;
+    padding: 0.2rem 0.6rem;
+    border-radius: 6px;
+    font-family: 'Syne', sans-serif;
+  }
+
+  /* Organic Practices */
+  .organic-list {
+    background: var(--white);
+    border-radius: 14px;
+    padding: 1.5rem;
+    box-shadow: var(--shadow);
+    margin-bottom: 1.5rem;
+    border: 1px solid var(--border);
+  }
+  .organic-item {
+    display: flex;
+    gap: 0.75rem;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.8rem;
+    line-height: 1.6;
+    color: var(--text-mid);
+  }
+  .organic-item:last-child { border-bottom: none; padding-bottom: 0; }
+  .organic-item::before {
+    content: '🌿';
+    flex-shrink: 0;
+    font-size: 1rem;
+    margin-top: 0.1rem;
+  }
+
+  /* Land Info */
+  .land-info {
+    background: linear-gradient(135deg, var(--soil-dark), var(--soil-brown));
+    color: white;
+    border-radius: 14px;
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .land-info-label {
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: rgba(255,255,255,0.5);
+    margin-bottom: 0.2rem;
+  }
+  .land-info-val {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 0.9rem;
+  }
+
+  /* Test selector */
+  .test-tabs {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+  }
+  .test-tab {
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: var(--white);
+    font-size: 0.72rem;
+    cursor: pointer;
+    font-family: 'DM Mono', monospace;
+    color: var(--text-mid);
+    transition: all 0.2s;
+  }
+  .test-tab:hover { border-color: var(--leaf-green); color: var(--leaf-green); }
+  .test-tab.active { background: var(--leaf-green); color: white; border-color: var(--leaf-green); }
+
+  /* ── ADMIN LOGIN ── */
+  #admin-login-page {
+    background: var(--soil-dark);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  #admin-login-page::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 60% 80% at 80% 50%, rgba(212,160,23,0.12) 0%, transparent 60%);
+  }
+
+  .admin-login-card {
+    position: relative;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(212,160,23,0.2);
+    border-radius: 20px;
+    padding: 3rem;
+    width: 100%;
+    max-width: 420px;
+    backdrop-filter: blur(20px);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+    animation: fadeUp 0.6s ease both;
+  }
+
+  .admin-login-logo {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  .admin-login-logo .icon { font-size: 2.5rem; margin-bottom: 0.5rem; }
+
+  .admin-login-logo h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: var(--white);
+  }
+
+  .admin-login-logo p {
+    font-size: 0.75rem;
+    color: rgba(255,255,255,0.4);
+    margin-top: 0.25rem;
+  }
+
+  .form-group { margin-bottom: 1.25rem; }
+
+  .form-label {
+    display: block;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: rgba(255,255,255,0.5);
+    margin-bottom: 0.5rem;
+  }
+
+  .form-input {
+    width: 100%;
+    padding: 0.9rem 1rem;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 10px;
+    color: white;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.85rem;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .form-input:focus { border-color: rgba(212,160,23,0.5); background: rgba(255,255,255,0.08); }
+  .form-input::placeholder { color: rgba(255,255,255,0.25); }
+
+  .btn-admin-login {
+    width: 100%;
+    padding: 1rem;
+    background: var(--gold);
+    color: var(--soil-dark);
+    border: none;
+    border-radius: 10px;
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-top: 0.5rem;
+    letter-spacing: 0.05em;
+  }
+  .btn-admin-login:hover { background: var(--gold-light); transform: translateY(-1px); }
+
+  .login-error {
+    background: rgba(192,57,43,0.15);
+    border: 1px solid rgba(192,57,43,0.3);
+    color: #e74c3c;
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    font-size: 0.75rem;
+    margin-bottom: 1rem;
+    display: none;
+  }
+
+  /* ── ADMIN DASHBOARD ── */
+  #admin-page .admin-topbar-extra {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .admin-nav {
+    background: var(--white);
+    border-bottom: 1px solid var(--border);
+    padding: 0 2rem;
+    display: flex;
+    gap: 0;
+    overflow-x: auto;
+  }
+
+  .admin-nav-tab {
+    padding: 1rem 1.5rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.78rem;
+    color: var(--text-light);
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    transition: all 0.2s;
+    white-space: nowrap;
+    background: none;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+  }
+  .admin-nav-tab:hover { color: var(--text-dark); }
+  .admin-nav-tab.active { color: var(--soil-dark); border-bottom-color: var(--gold); font-weight: 500; }
+
+  .admin-content {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 1.5rem 3rem;
+  }
+
+  /* Stats Row */
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .stat-card {
+    background: var(--white);
+    border-radius: 14px;
+    padding: 1.5rem;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border);
+    border-top: 3px solid var(--border);
+    transition: transform 0.2s;
+  }
+  .stat-card:hover { transform: translateY(-2px); }
+  .stat-card.green  { border-top-color: var(--leaf-green); }
+  .stat-card.gold   { border-top-color: var(--gold); }
+  .stat-card.brown  { border-top-color: var(--soil-warm); }
+  .stat-card.blue   { border-top-color: var(--sky-blue); }
+
+  .stat-label {
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--text-light);
+    margin-bottom: 0.5rem;
+  }
+
+  .stat-value {
+    font-family: 'Syne', sans-serif;
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: var(--text-dark);
+    line-height: 1;
+    margin-bottom: 0.25rem;
+  }
+
+  .stat-sub {
+    font-size: 0.72rem;
+    color: var(--text-light);
+  }
+
+  /* Admin Tables */
+  .admin-table-wrap {
+    background: var(--white);
+    border-radius: 16px;
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    border: 1px solid var(--border);
+    margin-bottom: 1.5rem;
+  }
+
+  .admin-table-header {
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .admin-table-title {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: var(--text-dark);
+  }
+
+  .search-input {
+    padding: 0.5rem 0.9rem;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.78rem;
+    outline: none;
+    width: 220px;
+    transition: border-color 0.2s;
+    background: var(--soil-cream);
+    color: var(--text-dark);
+  }
+  .search-input:focus { border-color: var(--leaf-green); background: white; }
+
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  .data-table th {
+    background: var(--soil-cream);
+    text-align: left;
+    padding: 0.8rem 1.25rem;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-light);
+    font-weight: 500;
+    border-bottom: 1px solid var(--border);
+  }
+  .data-table td {
+    padding: 0.9rem 1.25rem;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.8rem;
+    color: var(--text-dark);
+  }
+  .data-table tr:last-child td { border-bottom: none; }
+  .data-table tr:hover td { background: var(--soil-cream); }
+  .data-table .mono { font-family: 'DM Mono', monospace; font-size: 0.75rem; color: var(--text-mid); }
+
+  .table-action-btn {
+    background: var(--soil-cream);
+    border: 1px solid var(--border);
+    color: var(--text-mid);
+    padding: 0.3rem 0.75rem;
+    border-radius: 6px;
+    font-size: 0.72rem;
+    cursor: pointer;
+    font-family: 'DM Mono', monospace;
+    transition: all 0.2s;
+  }
+  .table-action-btn:hover { background: var(--leaf-green); color: white; border-color: var(--leaf-green); }
+
+  /* Modal */
+  .modal-overlay {
+    display: none;
+    position: fixed; inset: 0;
+    background: rgba(26,18,8,0.7);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(4px);
+    padding: 1rem;
+  }
+  .modal-overlay.open { display: flex; }
+
+  .modal {
+    background: var(--white);
+    border-radius: 20px;
+    width: 100%;
+    max-width: 680px;
+    max-height: 85vh;
+    overflow-y: auto;
+    box-shadow: var(--shadow-lg);
+    animation: fadeUp 0.3s ease both;
+  }
+
+  .modal-header {
+    padding: 1.5rem 2rem;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    background: var(--white);
+    z-index: 1;
+  }
+
+  .modal-title {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--text-dark);
+  }
+
+  .modal-close {
+    background: var(--soil-cream);
+    border: 1px solid var(--border);
+    width: 32px; height: 32px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.2s;
+    color: var(--text-mid);
+  }
+  .modal-close:hover { background: var(--danger-light); color: var(--danger); border-color: var(--danger); }
+
+  .modal-body { padding: 1.5rem 2rem 2rem; }
+
+  /* Add forms in admin */
+  .add-form { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .add-form .full { grid-column: 1 / -1; }
+
+  .form-field label {
+    display: block;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-light);
+    margin-bottom: 0.4rem;
+  }
+  .form-field input, .form-field select {
+    width: 100%;
+    padding: 0.75rem 0.9rem;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.82rem;
+    color: var(--text-dark);
+    background: var(--soil-cream);
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .form-field input:focus, .form-field select:focus {
+    border-color: var(--gold);
+    background: white;
+  }
+
+  .btn-add {
+    background: var(--gold);
+    color: var(--soil-dark);
+    border: none;
+    padding: 0.85rem 2rem;
+    border-radius: 10px;
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-top: 0.5rem;
+  }
+  .btn-add:hover { background: var(--gold-light); transform: translateY(-1px); }
+
+  .btn-outline {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text-mid);
+    padding: 0.85rem 1.5rem;
+    border-radius: 10px;
+    font-family: 'Syne', sans-serif;
+    font-weight: 600;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-top: 0.5rem;
+    margin-left: 0.5rem;
+  }
+  .btn-outline:hover { border-color: var(--text-dark); color: var(--text-dark); }
+
+  /* Inline Recommendation View in Modal */
+  .rec-section { margin-bottom: 1.25rem; }
+  .rec-section-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-light);
+    margin-bottom: 0.6rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .rec-param-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.4rem 0;
+    font-size: 0.78rem;
+    border-bottom: 1px solid rgba(0,0,0,0.04);
+  }
+  .rec-param-name { color: var(--text-mid); font-weight: 500; }
+  .rec-param-val  { font-family: 'Syne', sans-serif; font-weight: 700; }
+
+  /* Pill Tags */
+  .pill {
+    display: inline-block;
+    padding: 0.2rem 0.6rem;
+    border-radius: 10px;
+    font-size: 0.68rem;
+    font-weight: 600;
+  }
+  .pill-green  { background: var(--success-light); color: var(--success); }
+  .pill-warn   { background: var(--warn-light);    color: var(--warn); }
+  .pill-danger { background: var(--danger-light);  color: var(--danger); }
+  .pill-gray   { background: var(--soil-cream);    color: var(--text-light); }
+
+  /* Loading */
+  .loader {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 2rem;
+    color: var(--text-light);
+    font-size: 0.8rem;
+  }
+
+  .spinner {
+    width: 18px; height: 18px;
+    border: 2px solid var(--border);
+    border-top-color: var(--leaf-green);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+  }
+
+  .empty-state {
+    text-align: center;
+    padding: 3rem 2rem;
+    color: var(--text-light);
+  }
+  .empty-state .empty-icon { font-size: 2.5rem; margin-bottom: 1rem; }
+  .empty-state p { font-size: 0.85rem; line-height: 1.6; }
+
+  .error-msg {
+    background: var(--danger-light);
+    border: 1px solid rgba(192,57,43,0.2);
+    color: var(--danger);
+    padding: 0.85rem 1.25rem;
+    border-radius: 10px;
+    font-size: 0.8rem;
+    margin-bottom: 1rem;
+  }
+
+  .success-msg {
+    background: var(--success-light);
+    border: 1px solid rgba(39,174,96,0.2);
+    color: var(--success);
+    padding: 0.85rem 1.25rem;
+    border-radius: 10px;
+    font-size: 0.8rem;
+    margin-bottom: 1rem;
+  }
+
+  /* Admin panel tabs content */
+  .admin-tab-content { display: none; }
+  .admin-tab-content.active { display: block; }
+
+  /* Animations */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+
+  /* Responsive */
+  @media (max-width: 600px) {
+    .add-form { grid-template-columns: 1fr; }
+    .add-form .full { grid-column: 1; }
+    .land-portals { flex-direction: column; align-items: center; }
+    .portal-card { width: 100%; max-width: 320px; }
+    .topbar { padding: 0.75rem 1rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════
+     LANDING
+════════════════════════════════════════════ -->
+<div id="landing">
+  <div class="land-grid"></div>
+  <div class="land-content">
+    <div class="land-badge">🌱 Soil Intelligence Platform</div>
+    <h1 class="land-title">
+      KrushiSoil
+      <span>Remote Soil &amp; Water Testing</span>
+    </h1>
+    <p class="land-sub">IoT-powered soil analysis with AI recommendations for Indian farmers</p>
+    <div class="land-portals">
+      <div class="portal-card farmer" onclick="showPage('farmer-page')">
+        <span class="portal-icon">🧑‍🌾</span>
+        <h3>Farmer Portal</h3>
+        <p>View your soil test results and crop recommendations using your Farmer ID</p>
+      </div>
+      <div class="portal-card admin" onclick="showPage('admin-login-page')">
+        <span class="portal-icon">⚙️</span>
+        <h3>Admin Portal</h3>
+        <p>Manage farmers, lands, tests, and view all soil health reports</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     FARMER PAGE
+════════════════════════════════════════════ -->
+<div id="farmer-page" class="page">
+  <div class="topbar">
+    <div class="topbar-logo">🌱 <span>Krushi</span>Soil</div>
+    <button class="topbar-back" onclick="showPage('landing')">← Back</button>
+  </div>
+
+  <div id="farmer-page" style="display:block">
+    <div class="hero" style="padding:3rem 2rem 5rem">
+      <h1>Farmer Portal</h1>
+      <p>Enter your Farmer ID to view your soil health reports and crop recommendations</p>
+    </div>
+
+    <div class="farmer-lookup">
+      <div class="lookup-card">
+        <h2>View Your Soil Reports</h2>
+        <p>Your Farmer ID was provided by your agricultural officer or admin</p>
+        <div id="farmer-lookup-error" class="error-msg" style="display:none"></div>
+        <div class="input-row">
+          <input class="field-input" id="farmer-id-input" type="text" placeholder="e.g. F001" />
+          <button class="btn-primary" onclick="lookupFarmer()">Search</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="farmer-results" class="farmer-results" style="display:none"></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     ADMIN LOGIN
+════════════════════════════════════════════ -->
+<div id="admin-login-page" class="page">
+  <div style="position:absolute;top:1rem;left:1rem;z-index:10">
+    <button class="topbar-back" onclick="showPage('landing')" style="background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);color:rgba(255,255,255,0.7)">← Back</button>
+  </div>
+  <div class="admin-login-card">
+    <div class="admin-login-logo">
+      <div class="icon">⚙️</div>
+      <h2>Admin Portal</h2>
+      <p>KrushiSoil Management System</p>
+    </div>
+    <div id="admin-login-error" class="login-error"></div>
+    <div class="form-group">
+      <label class="form-label">Username or Email</label>
+      <input class="form-input" id="admin-username" type="text" placeholder="admin@example.com" />
+    </div>
+    <div class="form-group">
+      <label class="form-label">Password</label>
+      <input class="form-input" id="admin-password" type="password" placeholder="••••••••"
+             onkeydown="if(event.key==='Enter') adminLogin()" />
+    </div>
+    <button class="btn-admin-login" onclick="adminLogin()">Sign In →</button>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     ADMIN DASHBOARD
+════════════════════════════════════════════ -->
+<div id="admin-page" class="page">
+  <div class="topbar">
+    <div class="topbar-logo">🌱 <span>Krushi</span>Soil <span style="font-size:0.65rem;color:rgba(255,255,255,0.4);margin-left:0.5rem;font-family:'DM Mono'">ADMIN</span></div>
+    <div class="topbar-user">
+      <span class="topbar-username" id="admin-logged-in-name"></span>
+      <button class="btn-logout" onclick="adminLogout()">Logout</button>
+    </div>
+  </div>
+
+  <div class="admin-nav">
+    <button class="admin-nav-tab active" onclick="switchAdminTab('overview')">📊 Overview</button>
+    <button class="admin-nav-tab" onclick="switchAdminTab('farmers')">🧑‍🌾 Farmers</button>
+    <button class="admin-nav-tab" onclick="switchAdminTab('lands')">🗺️ Lands</button>
+    <button class="admin-nav-tab" onclick="switchAdminTab('tests')">🧪 Tests & Reports</button>
+  </div>
+
+  <div class="admin-content">
+
+    <!-- Overview Tab -->
+    <div id="tab-overview" class="admin-tab-content active">
+      <div class="stats-row" id="admin-stats-row">
+        <div class="stat-card green">
+          <div class="stat-label">Total Farmers</div>
+          <div class="stat-value" id="stat-farmers">—</div>
+          <div class="stat-sub">Registered in system</div>
+        </div>
+        <div class="stat-card gold">
+          <div class="stat-label">Total Lands</div>
+          <div class="stat-value" id="stat-lands">—</div>
+          <div class="stat-sub">Across all farmers</div>
+        </div>
+        <div class="stat-card brown">
+          <div class="stat-label">Total Tests</div>
+          <div class="stat-value" id="stat-tests">—</div>
+          <div class="stat-sub">Soil analyses done</div>
+        </div>
+        <div class="stat-card blue">
+          <div class="stat-label">Good Yield Status</div>
+          <div class="stat-value" id="stat-good">—</div>
+          <div class="stat-sub">Tests with good results</div>
+        </div>
+      </div>
+
+      <div class="section-title">📋 Recent Tests</div>
+      <div id="overview-recent-tests"></div>
+    </div>
+
+    <!-- Farmers Tab -->
+    <div id="tab-farmers" class="admin-tab-content">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.25rem;flex-wrap:wrap;gap:1rem">
+        <div class="section-title" style="margin:0">🧑‍🌾 All Farmers</div>
+        <button class="btn-primary" onclick="openModal('modal-add-farmer')" style="font-size:0.8rem;padding:0.6rem 1.2rem">+ Add Farmer</button>
+      </div>
+      <div id="farmers-table-wrap"></div>
+    </div>
+
+    <!-- Lands Tab -->
+    <div id="tab-lands" class="admin-tab-content">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.25rem;flex-wrap:wrap;gap:1rem">
+        <div class="section-title" style="margin:0">🗺️ All Lands</div>
+        <button class="btn-primary" onclick="openModal('modal-add-land')" style="font-size:0.8rem;padding:0.6rem 1.2rem">+ Add Land</button>
+      </div>
+      <div id="lands-table-wrap"></div>
+    </div>
+
+    <!-- Tests Tab -->
+    <div id="tab-tests" class="admin-tab-content">
+      <div class="section-title">🧪 All Soil Tests &amp; Recommendations</div>
+      <div id="tests-table-wrap"></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     MODALS
+════════════════════════════════════════════ -->
+
+<!-- Add Farmer Modal -->
+<div id="modal-add-farmer" class="modal-overlay" onclick="if(event.target===this)closeModal('modal-add-farmer')">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">Add New Farmer</div>
+      <button class="modal-close" onclick="closeModal('modal-add-farmer')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div id="add-farmer-msg"></div>
+      <div class="add-form">
+        <div class="form-field">
+          <label>Farmer ID</label>
+          <input id="af-id" type="text" placeholder="F001" />
+        </div>
+        <div class="form-field">
+          <label>Full Name</label>
+          <input id="af-name" type="text" placeholder="Ravi Kumar" />
+        </div>
+        <div class="form-field full">
+          <label>Email</label>
+          <input id="af-email" type="email" placeholder="ravi@example.com" />
+        </div>
+      </div>
+      <button class="btn-add" onclick="submitAddFarmer()">Add Farmer</button>
+      <button class="btn-outline" onclick="closeModal('modal-add-farmer')">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- Add Land Modal -->
+<div id="modal-add-land" class="modal-overlay" onclick="if(event.target===this)closeModal('modal-add-land')">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">Add New Land</div>
+      <button class="modal-close" onclick="closeModal('modal-add-land')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div id="add-land-msg"></div>
+      <div class="add-form">
+        <div class="form-field">
+          <label>Land ID</label>
+          <input id="al-id" type="text" placeholder="L001" />
+        </div>
+        <div class="form-field">
+          <label>Farmer ID</label>
+          <input id="al-farmer" type="text" placeholder="F001" />
+        </div>
+        <div class="form-field full">
+          <label>Location</label>
+          <input id="al-location" type="text" placeholder="Village, District, State" />
+        </div>
+      </div>
+      <button class="btn-add" onclick="submitAddLand()">Add Land</button>
+      <button class="btn-outline" onclick="closeModal('modal-add-land')">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- View Test / Recommendation Modal -->
+<div id="modal-view-test" class="modal-overlay" onclick="if(event.target===this)closeModal('modal-view-test')">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title" id="modal-view-test-title">Test Report</div>
+      <button class="modal-close" onclick="closeModal('modal-view-test')">✕</button>
+    </div>
+    <div class="modal-body" id="modal-view-test-body"></div>
+  </div>
+</div>
+
+<script>
+// ═══════════════════════════════════════════
+//  CONFIG
+// ═══════════════════════════════════════════
+const API = 'http://127.0.0.1:8000';
+
+// ═══════════════════════════════════════════
+//  NAVIGATION
+// ═══════════════════════════════════════════
+function showPage(id) {
+  document.getElementById('landing').style.display = 'none';
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  if (id === 'landing') {
+    document.getElementById('landing').style.display = 'flex';
+  } else {
+    const pg = document.getElementById(id);
+    if (pg) pg.classList.add('active');
+  }
+}
+
+function switchAdminTab(tab) {
+  document.querySelectorAll('.admin-tab-content').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.admin-nav-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('tab-' + tab).classList.add('active');
+  event.currentTarget.classList.add('active');
+  if (tab === 'farmers') loadFarmersTable();
+  if (tab === 'lands')   loadLandsTable();
+  if (tab === 'tests')   loadTestsTable();
+}
+
+function openModal(id)  { document.getElementById(id).classList.add('open'); }
+function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+
+// ═══════════════════════════════════════════
+//  FARMER PORTAL
+// ═══════════════════════════════════════════
+async function lookupFarmer() {
+  const id = document.getElementById('farmer-id-input').value;
+  const errEl = document.getElementById('farmer-lookup-error');
+  const resEl = document.getElementById('farmer-results');
+
+  errEl.style.display = 'none';
+  if (!id) { errEl.textContent = 'Please enter a Farmer ID.'; errEl.style.display = 'block'; return; }
+
+  resEl.innerHTML = '<div class="loader"><div class="spinner"></div> Loading your soil reports...</div>';
+  resEl.style.display = 'block';
+
+  try {
+    const res = await fetch(`${API}/farmer/${id}`);
+    if (!res.ok) throw new Error('Farmer not found');
+    const data = await res.json();
+    if (!data.length) throw new Error('No lands or tests found for this Farmer ID');
+    renderFarmerResults(id, data);
+  } catch (e) {
+    resEl.style.display = 'none';
+    errEl.textContent = e.message;
+    errEl.style.display = 'block';
+  }
+}
+
+function renderFarmerResults(farmerId, lands) {
+  const el = document.getElementById('farmer-results');
+  let html = '';
+
+  lands.forEach((land, li) => {
+    const tests = land.tests || [];
+    if (!tests.length) return;
+
+    // Use latest test recommendation for summary
+    const latest = tests[tests.length - 1];
+    let rec = null;
+    try { rec = JSON.parse(latest.recommendation); } catch(e) {}
+
+    const score = rec?.summary?.soil_health_score ?? '—';
+    const yieldStatus = rec?.summary?.yield_status ?? '—';
+    const scoreClass = yieldStatus === 'Good' ? 'good' : yieldStatus === 'Moderate' ? 'moderate' : 'poor';
+
+    html += `
+      <div class="land-info">
+        <div>
+          <div class="land-info-label">Land ID</div>
+          <div class="land-info-val">${land.land_id}</div>
+        </div>
+        <div>
+          <div class="land-info-label">Location</div>
+          <div class="land-info-val">${land.location || '—'}</div>
+        </div>
+        <div>
+          <div class="land-info-label">Current Crop</div>
+          <div class="land-info-val">${land.current_crop || 'None'}</div>
+        </div>
+        <div>
+          <div class="land-info-label">Total Tests</div>
+          <div class="land-info-val">${tests.length}</div>
+        </div>
+      </div>`;
+
+    // Test selector tabs
+    if (tests.length > 1) {
+      html += `<div class="test-tabs" id="tabs-land-${li}">`;
+      tests.forEach((t, ti) => {
+        html += `<button class="test-tab${ti===tests.length-1?' active':''}" 
+          onclick="showTestResult(${li},${ti})">${formatDate(t.date)} ${ti===tests.length-1?'(Latest)':''}</button>`;
+      });
+      html += `</div>`;
+    }
+
+    // Per-test result containers
+    tests.forEach((t, ti) => {
+      let r = null;
+      try { r = JSON.parse(t.recommendation); } catch(e) {}
+      const show = ti === tests.length - 1;
+      html += `<div id="test-result-${li}-${ti}" style="display:${show?'block':'none'}">`;
+      html += renderTestResult(t, r, farmerId, li, ti);
+      html += `</div>`;
+    });
+  });
+
+  if (!html) {
+    html = `<div class="empty-state">
+      <div class="empty-icon">🌱</div>
+      <p>No test results found yet.<br>Your land may not have been tested yet.</p>
+    </div>`;
+  }
+
+  el.innerHTML = html;
+  // Animate bars after render
+  setTimeout(() => animateBars(), 100);
+}
+
+function showTestResult(landIdx, testIdx) {
+  // Hide all for this land
+  document.querySelectorAll(`[id^="test-result-${landIdx}-"]`).forEach(el => el.style.display='none');
+  document.querySelectorAll(`#tabs-land-${landIdx} .test-tab`).forEach(t => t.classList.remove('active'));
+  document.getElementById(`test-result-${landIdx}-${testIdx}`).style.display = 'block';
+  document.querySelectorAll(`#tabs-land-${landIdx} .test-tab`)[testIdx].classList.add('active');
+}
+
+function renderTestResult(test, rec, farmerId, landIdx, testIdx) {
+  if (!rec) {
+    return `<div class="error-msg">Recommendation data not available for this test.</div>`;
+  }
+
+  const s = rec.summary;
+  const pa = rec.parameter_analysis || {};
+  const crops = rec.recommended_crops || [];
+  const fert = rec.fertilizer_plan || [];
+  const organic = rec.organic_practices || [];
+  const scoreClass = s.yield_status === 'Good' ? 'good' : s.yield_status === 'Moderate' ? 'moderate' : 'poor';
+  const yieldCls  = s.yield_status === 'Good' ? 'yield-good' : s.yield_status === 'Moderate' ? 'yield-moderate' : 'yield-poor';
+
+  const paramLabels = { ph:'pH', n:'Nitrogen', p:'Phosphorus', k:'Potassium', moisture:'Moisture', ec:'EC' };
+  const paramUnits  = { ph:'', n:' kg/ha', p:' kg/ha', k:' kg/ha', moisture:'%', ec:' dS/m' };
+
+  let html = `
+    <div class="farmer-header-card">
+      <div>
+        <div class="farmer-id-display">
+          <span>Farmer ID</span>${farmerId}
+        </div>
+      </div>
+      <div style="display:flex;align-items:center;gap:1rem;flex-wrap:wrap">
+        <div class="score-ring-wrap">
+          <div class="score-ring ${scoreClass}">
+            ${s.soil_health_score}
+          </div>
+          <div>
+            <div style="font-size:0.65rem;color:var(--text-light);text-transform:uppercase;letter-spacing:0.1em">Soil Score</div>
+            <div style="font-size:0.75rem;color:var(--text-mid)">${s.total_issues} issue${s.total_issues!==1?'s':''} found</div>
+          </div>
+        </div>
+        <span class="yield-badge ${yieldCls}">Yield: ${s.yield_status}</span>
+      </div>
+    </div>`;
+
+  // Parameter analysis
+  html += `<div class="section-title">🔬 Soil Parameter Analysis</div>
+    <div class="param-grid">`;
+  Object.entries(pa).forEach(([key, d]) => {
+    const statusKey = d.status.replace(/\s+/g, '-');
+    const cardCls = d.status === 'Ideal' ? 'ideal' : d.status.includes('Critical') ? 'critical' : 'low';
+    const pct = getParamPercent(key, d.value);
+    const barColor = d.status === 'Ideal' ? 'var(--success)' : d.status.includes('Critical') ? 'var(--danger)' : 'var(--warn)';
+    html += `
+      <div class="param-card ${cardCls}">
+        <div class="param-header">
+          <div class="param-name">${paramLabels[key] || key}</div>
+          <span class="param-status status-${statusKey}">${d.status}</span>
+        </div>
+        <div class="param-value">${d.value}${paramUnits[key]}</div>
+        <div class="param-bar-wrap">
+          <div class="param-bar-bg">
+            <div class="param-bar-fill" data-width="${pct}" style="width:0%;background:${barColor}"></div>
+          </div>
+        </div>
+        <div class="param-unit">Ideal range: ${d.ideal_range}${paramUnits[key]}</div>
+        <div class="param-action">${d.action}</div>
+      </div>`;
+  });
+  html += `</div>`;
+
+  // Current crop
+  if (rec.current_crop) {
+    const cc = rec.current_crop;
+    const mp = cc.match_percent;
+    const mpCls = mp === null ? 'gray' : mp >= 80 ? 'green' : mp >= 50 ? 'warn' : 'danger';
+    html += `<div class="section-title">🌾 Current Crop Analysis</div>
+      <div class="organic-list" style="margin-bottom:1.5rem">
+        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem">
+          <div>
+            <div style="font-family:'Syne',sans-serif;font-weight:800;font-size:1.1rem">${cc.crop}</div>
+            <div style="font-size:0.75rem;color:var(--text-light);margin-top:0.25rem">${cc.note || ''}</div>
+          </div>
+          ${mp !== null ? `<div style="text-align:center">
+            <div style="font-family:'Syne',sans-serif;font-size:1.6rem;font-weight:800" class="pill pill-${mpCls}">${mp}%</div>
+            <div style="font-size:0.65rem;color:var(--text-light)">soil match</div>
+          </div>` : ''}
+        </div>
+        ${cc.mismatches && cc.mismatches.length ? `
+          <div style="margin-top:1rem;padding-top:1rem;border-top:1px solid var(--border)">
+            <div style="font-size:0.7rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--warn);margin-bottom:0.5rem">Parameter Mismatches</div>
+            ${cc.mismatches.map(m => `<div style="font-size:0.75rem;color:var(--text-mid);padding:0.2rem 0">⚠️ ${m}</div>`).join('')}
+          </div>` : ''}
+      </div>`;
+  }
+
+  // Recommended crops
+  html += `<div class="section-title">🌱 Best Crops for Your Soil</div>
+    <div class="crop-grid">`;
+  crops.slice(0, 3).forEach((c, i) => {
+    html += `
+      <div class="crop-card ${i===0?'top1':''}">
+        <div class="crop-rank">${i===0?'🥇 Best Match':`#${i+1} Recommended`}</div>
+        <div class="crop-name">${c.crop}</div>
+        <div class="crop-match-bar">
+          <div class="crop-match-fill" data-width="${c.match_percent}" style="width:0%"></div>
+        </div>
+        <div class="crop-pct">${c.match_percent}%</div>
+        <div class="crop-matched-text">${c.parameters_matched} parameters match</div>
+        ${c.note ? `<div class="crop-note">${c.note}</div>` : ''}
+      </div>`;
+  });
+  html += `</div>`;
+
+  // Fertilizer plan
+  if (fert.length) {
+    html += `<div class="section-title">🧪 Fertilizer Plan</div>
+      <table class="fert-table">
+        <thead><tr><th>Nutrient</th><th>Product</th><th>Dose</th><th>When to Apply</th></tr></thead>
+        <tbody>`;
+    fert.forEach(f => {
+      html += `<tr>
+        <td><span class="fert-nutrient-badge">${f.nutrient}</span></td>
+        <td>${f.product}</td>
+        <td><strong>${f.dose}</strong></td>
+        <td>${f.timing}</td>
+      </tr>`;
+    });
+    html += `</tbody></table>`;
+  }
+
+  // Organic practices
+  if (organic.length) {
+    html += `<div class="section-title">🌿 Organic &amp; Natural Practices</div>
+      <div class="organic-list">`;
+    organic.forEach(p => { html += `<div class="organic-item">${p}</div>`; });
+    html += `</div>`;
+  }
+
+  return html;
+}
+
+function getParamPercent(key, value) {
+  const ranges = {
+    ph:       [0, 14],
+    n:        [0, 300],
+    p:        [0, 80],
+    k:        [0, 150],
+    moisture: [0, 100],
+    ec:       [0, 6],
+  };
+  const [min, max] = ranges[key] || [0, 100];
+  return Math.min(100, Math.max(0, ((value - min) / (max - min)) * 100));
+}
+
+function animateBars() {
+  document.querySelectorAll('[data-width]').forEach(el => {
+    el.style.width = el.getAttribute('data-width') + '%';
+  });
+}
+
+// ═══════════════════════════════════════════
+//  ADMIN AUTH
+// ═══════════════════════════════════════════
+async function adminLogin() {
+  const username = document.getElementById('admin-username').value.trim();
+  const password = document.getElementById('admin-password').value;
+  const errEl = document.getElementById('admin-login-error');
+  errEl.style.display = 'none';
+
+  if (!username || !password) {
+    errEl.textContent = 'Please enter username and password.';
+    errEl.style.display = 'block'; return;
+  }
+
+  try {
+    // Try email-based login (admin table)
+    const res = await fetch(`${API}/admin/login`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',
+      body: JSON.stringify({ email: username, password }),
+    });
+
+    if (res.ok) {
+      document.getElementById('admin-logged-in-name').textContent = username;
+      showPage('admin-page');
+      loadAdminOverview();
+    } else {
+      // Try username-based login (admins table)
+      const res2 = await fetch(`${API}/admins/login`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify({ username, password }),
+      });
+      if (res2.ok) {
+        document.getElementById('admin-logged-in-name').textContent = username;
+        showPage('admin-page');
+        loadAdminOverview();
+      } else {
+        const err = await res2.json().catch(() => ({}));
+        errEl.textContent = err.detail || 'Invalid username or password.';
+        errEl.style.display = 'block';
+      }
+    }
+  } catch(e) {
+    errEl.textContent = 'Cannot reach server. Make sure the backend is running.';
+    errEl.style.display = 'block';
+  }
+}
+
+async function adminLogout() {
+  await fetch(`${API}/admin/logout`, { method: 'POST', credentials: 'include' }).catch(() => {});
+  showPage('landing');
+}
+
+// ═══════════════════════════════════════════
+//  ADMIN — OVERVIEW
+// ═══════════════════════════════════════════
+async function loadAdminOverview() {
+  try {
+    const [farmersRes, testsRes] = await Promise.all([
+      fetch(`${API}/admin/farmers`, { credentials: 'include' }),
+      fetch(`${API}/admin/tests`,   { credentials: 'include' }),
+    ]);
+
+    const farmers = farmersRes.ok ? await farmersRes.json() : [];
+    const tests   = testsRes.ok   ? await testsRes.json()   : [];
+
+    const lands = farmers.reduce((acc, f) => acc + (f.land_count || 0), 0);
+    const goodCount = tests.filter(t => {
+      try { return JSON.parse(t.recommendation)?.summary?.yield_status === 'Good'; } catch(e){ return false; }
+    }).length;
+
+    document.getElementById('stat-farmers').textContent = farmers.length;
+    document.getElementById('stat-lands').textContent   = lands || '—';
+    document.getElementById('stat-tests').textContent   = tests.length;
+    document.getElementById('stat-good').textContent    = goodCount;
+
+    // Recent tests (last 5)
+    const recent = tests.slice(0, 5);
+    const wrap = document.getElementById('overview-recent-tests');
+    if (!recent.length) {
+      wrap.innerHTML = `<div class="empty-state"><div class="empty-icon">🧪</div><p>No tests yet.</p></div>`;
+      return;
+    }
+    wrap.innerHTML = `<div class="admin-table-wrap">${buildTestsTable(recent, true)}</div>`;
+  } catch(e) {
+    document.getElementById('overview-recent-tests').innerHTML =
+      `<div class="error-msg">Could not load overview. Is the backend running?</div>`;
+  }
+}
+
+// ═══════════════════════════════════════════
+//  ADMIN — FARMERS
+// ═══════════════════════════════════════════
+let allFarmers = [];
+
+async function loadFarmersTable() {
+  const wrap = document.getElementById('farmers-table-wrap');
+  wrap.innerHTML = `<div class="loader"><div class="spinner"></div> Loading farmers...</div>`;
+  try {
+    const res = await fetch(`${API}/admin/farmers`, { credentials: 'include' });
+    if (!res.ok) throw new Error();
+    allFarmers = await res.json();
+    renderFarmersTable(allFarmers);
+  } catch(e) {
+    wrap.innerHTML = `<div class="error-msg">Failed to load farmers.</div>`;
+  }
+}
+
+function renderFarmersTable(farmers) {
+  const wrap = document.getElementById('farmers-table-wrap');
+  if (!farmers.length) {
+    wrap.innerHTML = `<div class="empty-state"><div class="empty-icon">🧑‍🌾</div><p>No farmers registered yet.</p></div>`;
+    return;
+  }
+  wrap.innerHTML = `
+    <div class="admin-table-wrap">
+      <div class="admin-table-header">
+        <div class="admin-table-title">All Farmers (${farmers.length})</div>
+        <input class="search-input" placeholder="Search farmers..." oninput="filterFarmers(this.value)" />
+      </div>
+      <table class="data-table">
+        <thead><tr><th>Farmer ID</th><th>Name</th><th>Email</th><th>Actions</th></tr></thead>
+        <tbody>
+          ${farmers.map(f => `
+            <tr>
+              <td class="mono">${f.id}</td>
+              <td><strong>${f.name || '—'}</strong></td>
+              <td class="mono">${f.email || '—'}</td>
+              <td><button class="table-action-btn" onclick="viewFarmerFromAdmin('${f.id}')">View Reports</button></td>
+            </tr>`).join('')}
+        </tbody>
+      </table>
+    </div>`;
+}
+
+function filterFarmers(q) {
+  const filtered = allFarmers.filter(f =>
+    (f.id + f.name + f.email).toLowerCase().includes(q.toLowerCase())
+  );
+  renderFarmersTable(filtered);
+}
+
+function viewFarmerFromAdmin(id) {
+  // Switch to farmer view in admin context via modal
+  openTestModalForFarmer(id);
+}
+
+async function openTestModalForFarmer(farmerId) {
+  const modal = document.getElementById('modal-view-test');
+  document.getElementById('modal-view-test-title').textContent = `Farmer Reports — ${farmerId}`;
+  document.getElementById('modal-view-test-body').innerHTML =
+    `<div class="loader"><div class="spinner"></div> Loading...</div>`;
+  modal.classList.add('open');
+
+  try {
+    const res = await fetch(`${API}/farmer/${encodeURIComponent(farmerId)}`);
+    if (!res.ok) throw new Error('Not found');
+    const data = await res.json();
+    if (!data.length) throw new Error('No test data found');
+
+    let html = '';
+    data.forEach(land => {
+      (land.tests || []).forEach(t => {
+        let rec = null;
+        try { rec = JSON.parse(t.recommendation); } catch(e) {}
+        if (!rec) return;
+        const s = rec.summary;
+        const yieldCls = s.yield_status==='Good'?'pill-green':s.yield_status==='Moderate'?'pill-warn':'pill-danger';
+        html += `
+          <div class="rec-section">
+            <div class="rec-section-title">Land: ${land.land_id} — ${formatDate(t.date)}</div>
+            <div class="rec-param-row"><span class="rec-param-name">Soil Score</span>
+              <span class="rec-param-val">${s.soil_health_score}/100</span></div>
+            <div class="rec-param-row"><span class="rec-param-name">Yield Status</span>
+              <span class="pill ${yieldCls}">${s.yield_status}</span></div>
+            ${buildParamRows(rec.parameter_analysis)}
+            ${rec.recommended_crops?.length ? `
+              <div style="margin-top:0.75rem;font-size:0.72rem;color:var(--text-light);text-transform:uppercase;letter-spacing:0.1em">Best Crop Match</div>
+              <div style="font-family:'Syne',sans-serif;font-weight:800;font-size:1rem;margin-top:0.3rem">
+                ${rec.recommended_crops[0]?.crop} — ${rec.recommended_crops[0]?.match_percent}%
+              </div>` : ''}
+          </div>`;
+      });
+    });
+
+    document.getElementById('modal-view-test-body').innerHTML = html || '<p>No recommendation data available.</p>';
+  } catch(e) {
+    document.getElementById('modal-view-test-body').innerHTML = `<div class="error-msg">${e.message}</div>`;
+  }
+}
+
+function buildParamRows(pa) {
+  if (!pa) return '';
+  const labels = { ph:'pH', n:'Nitrogen', p:'Phosphorus', k:'Potassium', moisture:'Moisture', ec:'EC' };
+  const units   = { ph:'', n:' kg/ha', p:' kg/ha', k:' kg/ha', moisture:'%', ec:' dS/m' };
+  return Object.entries(pa).map(([k,d]) => {
+    const cls = d.status==='Ideal'?'pill-green':d.status.includes('Critical')?'pill-danger':'pill-warn';
+    return `<div class="rec-param-row">
+      <span class="rec-param-name">${labels[k]||k}</span>
+      <span>
+        <span class="rec-param-val">${d.value}${units[k]}</span>
+        &nbsp;<span class="pill ${cls}" style="font-size:0.62rem">${d.status}</span>
+      </span>
+    </div>`;
+  }).join('');
+}
+
+// ═══════════════════════════════════════════
+//  ADMIN — LANDS
+// ═══════════════════════════════════════════
+async function loadLandsTable() {
+  const wrap = document.getElementById('lands-table-wrap');
+  wrap.innerHTML = `<div class="loader"><div class="spinner"></div> Loading lands...</div>`;
+  try {
+    const res = await fetch(`${API}/admin/lands`, { credentials: 'include' });
+    if (!res.ok) throw new Error();
+    const lands = await res.json();
+
+    if (!lands.length) {
+      wrap.innerHTML = `<div class="empty-state"><div class="empty-icon">🗺️</div><p>No lands registered yet.</p></div>`;
+      return;
+    }
+
+    wrap.innerHTML = `
+      <div class="admin-table-wrap">
+        <div class="admin-table-header">
+          <div class="admin-table-title">All Lands (${lands.length})</div>
+        </div>
+        <table class="data-table">
+          <thead><tr><th>Land ID</th><th>Farmer ID</th><th>Location</th><th>Current Crop</th><th>Planted Date</th></tr></thead>
+          <tbody>
+            ${lands.map(l => `<tr>
+              <td class="mono">${l.id}</td>
+              <td class="mono">${l.farmer_id}</td>
+              <td>${l.location || '—'}</td>
+              <td>${l.current_crop ? `<span class="pill pill-green">${l.current_crop}</span>` : '<span class="pill pill-gray">None</span>'}</td>
+              <td class="mono">${l.planted_date ? formatDate(l.planted_date) : '—'}</td>
+            </tr>`).join('')}
+          </tbody>
+        </table>
+      </div>`;
+  } catch(e) {
+    wrap.innerHTML = `<div class="error-msg">Failed to load lands.</div>`;
+  }
+}
+
+// ═══════════════════════════════════════════
+//  ADMIN — TESTS
+// ═══════════════════════════════════════════
+async function loadTestsTable() {
+  const wrap = document.getElementById('tests-table-wrap');
+  wrap.innerHTML = `<div class="loader"><div class="spinner"></div> Loading tests...</div>`;
+  try {
+    const res = await fetch(`${API}/admin/tests`, { credentials: 'include' });
+    if (!res.ok) throw new Error();
+    const tests = await res.json();
+    if (!tests.length) {
+      wrap.innerHTML = `<div class="empty-state"><div class="empty-icon">🧪</div><p>No tests yet.</p></div>`;
+      return;
+    }
+    wrap.innerHTML = `<div class="admin-table-wrap">${buildTestsTable(tests, false)}</div>`;
+  } catch(e) {
+    wrap.innerHTML = `<div class="error-msg">Failed to load tests.</div>`;
+  }
+}
+
+function buildTestsTable(tests, compact) {
+  return `
+    <div class="admin-table-header">
+      <div class="admin-table-title">Tests (${tests.length})</div>
+    </div>
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Test ID</th>
+          <th>Land ID</th>
+          <th>Date</th>
+          <th>pH</th>
+          <th>N / P / K</th>
+          <th>Moisture</th>
+          <th>EC</th>
+          <th>Status</th>
+          ${compact ? '' : '<th>Report</th>'}
+        </tr>
+      </thead>
+      <tbody>
+        ${tests.map(t => {
+          let rec = null;
+          try { rec = JSON.parse(t.recommendation); } catch(e) {}
+          const ys = rec?.summary?.yield_status || '—';
+          const score = rec?.summary?.soil_health_score;
+          const yCls = ys==='Good'?'pill-green':ys==='Moderate'?'pill-warn':ys==='Poor'?'pill-danger':'pill-gray';
+          return `<tr>
+            <td class="mono" style="font-size:0.68rem">${t.test_id?.substring(0,8)||t.id?.substring(0,8)}…</td>
+            <td class="mono">${t.land_id}</td>
+            <td class="mono">${formatDate(t.created_at)}</td>
+            <td><strong>${(t.avg_ph||0).toFixed(1)}</strong></td>
+            <td class="mono">${(t.avg_n||0).toFixed(0)} / ${(t.avg_p||0).toFixed(0)} / ${(t.avg_k||0).toFixed(0)}</td>
+            <td>${(t.avg_moisture||0).toFixed(0)}%</td>
+            <td>${(t.avg_ec||0).toFixed(2)}</td>
+            <td>
+              <span class="pill ${yCls}">${ys}</span>
+              ${score !== undefined ? `<span style="font-size:0.7rem;color:var(--text-light);margin-left:0.4rem">${score}/100</span>` : ''}
+            </td>
+            ${compact ? '' : `<td><button class="table-action-btn" onclick="viewTestReport('${t.test_id||t.id}', this)">View</button></td>`}
+          </tr>`;
+        }).join('')}
+      </tbody>
+    </table>`;
+}
+
+async function viewTestReport(testId, btn) {
+  document.getElementById('modal-view-test-title').textContent = `Test Report — ${testId.substring(0,8)}…`;
+  document.getElementById('modal-view-test-body').innerHTML =
+    `<div class="loader"><div class="spinner"></div> Loading...</div>`;
+  openModal('modal-view-test');
+
+  try {
+    const res = await fetch(`${API}/recommendations/${testId}`, { credentials: 'include' });
+    if (!res.ok) throw new Error('Recommendation not found');
+    const data = await res.json();
+    let rec = null;
+    try { rec = JSON.parse(data.result); } catch(e) {}
+    if (!rec) throw new Error('Could not parse recommendation data');
+
+    const s = rec.summary;
+    const yCls = s.yield_status==='Good'?'pill-green':s.yield_status==='Moderate'?'pill-warn':'pill-danger';
+
+    let html = `
+      <div style="display:flex;align-items:center;gap:1rem;margin-bottom:1.5rem;flex-wrap:wrap">
+        <div>
+          <div style="font-family:'Syne',sans-serif;font-size:2rem;font-weight:800">${s.soil_health_score}<span style="font-size:1rem;color:var(--text-light)">/100</span></div>
+          <div style="font-size:0.7rem;color:var(--text-light)">Soil Health Score</div>
+        </div>
+        <span class="pill ${yCls}" style="font-size:0.85rem;padding:0.4rem 1rem">${s.yield_status} Yield</span>
+        <span style="font-size:0.8rem;color:var(--text-mid)">${s.total_issues} issue(s) detected</span>
+      </div>
+      <div class="rec-section">
+        <div class="rec-section-title">Parameter Analysis</div>
+        ${buildParamRows(rec.parameter_analysis)}
+      </div>`;
+
+    if (rec.recommended_crops?.length) {
+      html += `<div class="rec-section">
+        <div class="rec-section-title">Top 3 Recommended Crops</div>
+        ${rec.recommended_crops.slice(0,3).map((c,i) => `
+          <div class="rec-param-row">
+            <span class="rec-param-name">${i+1}. ${c.crop}</span>
+            <span class="pill ${c.match_percent>=80?'pill-green':c.match_percent>=50?'pill-warn':'pill-danger'}">${c.match_percent}% match</span>
+          </div>`).join('')}
+      </div>`;
+    }
+
+    if (rec.fertilizer_plan?.length) {
+      html += `<div class="rec-section">
+        <div class="rec-section-title">Fertilizer Plan</div>
+        ${rec.fertilizer_plan.map(f => `
+          <div class="rec-param-row" style="align-items:flex-start;flex-direction:column;gap:0.2rem;padding:0.6rem 0">
+            <div style="display:flex;gap:0.5rem;align-items:center">
+              <span class="fert-nutrient-badge">${f.nutrient}</span>
+              <strong style="font-size:0.82rem">${f.product}</strong>
+            </div>
+            <div style="font-size:0.75rem;color:var(--text-mid)">${f.dose} — ${f.timing}</div>
+          </div>`).join('')}
+      </div>`;
+    }
+
+    if (rec.organic_practices?.length) {
+      html += `<div class="rec-section">
+        <div class="rec-section-title">Organic Practices</div>
+        <div class="organic-list" style="padding:0.5rem 0;box-shadow:none;border:none">
+          ${rec.organic_practices.map(p => `<div class="organic-item">${p}</div>`).join('')}
+        </div>
+      </div>`;
+    }
+
+    document.getElementById('modal-view-test-body').innerHTML = html;
+  } catch(e) {
+    document.getElementById('modal-view-test-body').innerHTML = `<div class="error-msg">${e.message}</div>`;
+  }
+}
+
+// ═══════════════════════════════════════════
+//  ADMIN — ADD FARMER / LAND
+// ═══════════════════════════════════════════
+async function submitAddFarmer() {
+  const id    = document.getElementById('af-id').value.trim();
+  const name  = document.getElementById('af-name').value.trim();
+  const email = document.getElementById('af-email').value.trim();
+  const msg   = document.getElementById('add-farmer-msg');
+  msg.innerHTML = '';
+
+  if (!id || !name) { msg.innerHTML = `<div class="error-msg">Farmer ID and Name are required.</div>`; return; }
+
+  try {
+    const res = await fetch(
+      `${API}/admin/farmer?farmer_id=${encodeURIComponent(id)}&name=${encodeURIComponent(name)}&email=${encodeURIComponent(email)}`,
+      { method: 'POST', credentials: 'include' }
+    );
+    if (!res.ok) { const e = await res.json(); throw new Error(e.detail || 'Failed'); }
+    msg.innerHTML = `<div class="success-msg">✓ Farmer "${name}" added successfully!</div>`;
+    document.getElementById('af-id').value = '';
+    document.getElementById('af-name').value = '';
+    document.getElementById('af-email').value = '';
+    loadFarmersTable();
+    loadAdminOverview();
+  } catch(e) {
+    msg.innerHTML = `<div class="error-msg">${e.message}</div>`;
+  }
+}
+
+async function submitAddLand() {
+  const id      = document.getElementById('al-id').value.trim();
+  const farmer  = document.getElementById('al-farmer').value.trim();
+  const location= document.getElementById('al-location').value.trim();
+  const msg     = document.getElementById('add-land-msg');
+  msg.innerHTML = '';
+
+  if (!id || !farmer || !location) { msg.innerHTML = `<div class="error-msg">All fields are required.</div>`; return; }
+
+  try {
+    const res = await fetch(
+      `${API}/admin/land?land_id=${encodeURIComponent(id)}&farmer_id=${encodeURIComponent(farmer)}&location=${encodeURIComponent(location)}`,
+      { method: 'POST', credentials: 'include' }
+    );
+    if (!res.ok) { const e = await res.json(); throw new Error(e.detail || 'Failed'); }
+    msg.innerHTML = `<div class="success-msg">✓ Land "${id}" added successfully!</div>`;
+    document.getElementById('al-id').value = '';
+    document.getElementById('al-farmer').value = '';
+    document.getElementById('al-location').value = '';
+    loadAdminOverview();
+  } catch(e) {
+    msg.innerHTML = `<div class="error-msg">${e.message}</div>`;
+  }
+}
+
+// ═══════════════════════════════════════════
+//  UTILS
+// ═══════════════════════════════════════════
+function formatDate(d) {
+  if (!d) return '—';
+  try { return new Date(d).toLocaleDateString('en-IN', { day:'2-digit', month:'short', year:'numeric' }); }
+  catch(e) { return d; }
+}
+
+// Enter key on farmer lookup
+document.getElementById('farmer-id-input')?.addEventListener('keydown', e => {
+  if (e.key === 'Enter') lookupFarmer();
+});
+</script>
+</body>
+</html>
