@@ -20,7 +20,7 @@ from recommendation_engine import generate_recommendation
 # =========================
 # CONFIG
 # =========================
-DATABASE_URL = "postgresql://postgres:1234@localhost:5432/agri_db"
+DATABASE_URL = "postgresql://postgres:YOUR_PASSWORD@localhost:5432/agri_db"
 
 engine = create_engine(DATABASE_URL, pool_pre_ping=True)
 SessionLocal = sessionmaker(bind=engine, autoflush=False, autocommit=False)
