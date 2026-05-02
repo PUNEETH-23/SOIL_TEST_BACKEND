@@ -34,7 +34,11 @@ SOIL_TEST_BACKEND/
 ```
 
 ---
+## Create a database in PostgreSQL
 
+```
+CREATE DATABASE agri_db;
+```
 ## ⚙️ Backend Setup (FastAPI)
 
 ### 1️⃣ Navigate to backend
